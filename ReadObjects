@@ -1,0 +1,45 @@
+package example;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
+public class ReadObjects {
+
+	public static void main(String[] args) {
+
+		try (FileInputStream fs = new FileInputStream("planets.bin");
+				ObjectInputStream os = new ObjectInputStream(fs)) {
+			
+			System.out.println("Reading objects...");
+
+			// Read entire array
+			Planet[] planets = (Planet[]) os.readObject();
+			// Read arraylist
+			ArrayList<Planet> planetList = (ArrayList<Planet>) os.readObject();
+
+			for (Planet planet : planets) {
+				System.out.println(planet);
+			}
+
+			for (Planet planet : planetList) {
+				System.out.println(planet);
+			}
+			
+			// Read objects one by one.
+            int num = os.readInt();
+            
+            for(int i=0; i<num; i++) {
+                Planet planet = (Planet)os.readObject();
+                System.out.println(planet);
+            }
+            
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
