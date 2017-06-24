@@ -1,0 +1,45 @@
+package example;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class WriteObjects {
+
+	public static void main(String[] args) {
+		
+		Planet[] planets = {new Planet("Earth", "M"), new Planet("Mars", "K"), new Planet("Tau Cygna V", "H")};
+		
+		ArrayList<Planet> planetList = new ArrayList<Planet>(Arrays.asList(planets));
+		
+		try(FileOutputStream fs = new FileOutputStream("planets.bin"); ObjectOutputStream os = new ObjectOutputStream(fs)) {
+			
+			System.out.println("Writing objects...");
+			
+			// Write entire array
+			os.writeObject(planets);
+			
+			// Write arraylist
+			os.writeObject(planetList);
+			
+			// Write objects one by one
+			os.writeInt(planetList.size());
+			
+			for(Planet planet: planetList) {
+				os.writeObject(planet);
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
