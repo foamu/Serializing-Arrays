@@ -1,0 +1,22 @@
+package example;
+
+import java.io.Serializable;
+
+public class Planet implements Serializable {
+
+	private static final long serialVersionUID = -4083649047922895938L;
+
+	private String name;
+	private String planetClass;
+
+	public Planet(String name, String planetClass) {
+		this.name = name;
+		this.planetClass = planetClass;
+	}
+
+	@Override
+	public String toString() {
+		return "Planet [Name = " + name + ", Planet Class = " + planetClass + "]";
+	}
+
+}
